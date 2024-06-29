@@ -34,13 +34,14 @@ spring:
 
 p6spy:
   config:
-    executionThreshold: 500 #记录执行时间大于500毫秒的sql
+    executionThreshold: 500 #只记录执行时间大于500毫秒的sql
     logfile: slow.log #日志文件
     append: true
     dateformat: yyyy-MM-dd HH:mm:ss
     # 自定义的日志数据格式
-    customLogMessageFormat: -%(currentTime)|%(executionTime)|%(category)|%(sql)
-    logMessageFormat: com.p6spy.engine.spy.appender.CustomLineFormat    
+    customLogMessageFormat: -%(currentTime)|%(executionTime)|%(category)| 执行sql:%(sqlSingleLine)
+    logMessageFormat: com.p6spy.engine.spy.appender.CustomLineFormat
+    appender: com.p6spy.engine.spy.appender.Slf4JLogger
 ```
 对于超过500毫秒的sql，就会被记录在项目根目录的 slow.log 文件里
 
